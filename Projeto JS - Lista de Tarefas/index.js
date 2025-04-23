@@ -20,6 +20,8 @@ form.addEventListener('submit', (event) => {
         done: false
     })
 
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+
     const li = document.createElement('li')
     
     const input = document.createElement('input')
@@ -45,6 +47,7 @@ form.addEventListener('submit', (event) => {
             return t
         })
 
+        localStorage.setItem('tasks', JSON.stringify(tasks))
     })
 
     const button = document.createElement('button')
@@ -52,9 +55,11 @@ form.addEventListener('submit', (event) => {
     button.addEventListener('click', (event) => {
         const liToRemove = event.target.parentElement
 
-        const titleToRemove = liToRemove.querySelector('span')
-
+        const titleToRemove = liToRemove.querySelector('span').textContent
+        console.log(tasks)
         tasks = tasks.filter(t => t.title !== titleToRemove)
+
+        console.log(tasks)
 
         todoListUl.removeChild(liToRemove)
         
