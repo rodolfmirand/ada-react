@@ -47,6 +47,20 @@ form.addEventListener('submit', (event) => {
 
     })
 
+    const button = document.createElement('button')
+    button.textContent = 'Remover'
+    button.addEventListener('click', (event) => {
+        const liToRemove = event.target.parentElement
+
+        const titleToRemove = liToRemove.querySelector('span')
+
+        tasks = tasks.filter(t => t.title !== titleToRemove)
+
+        todoListUl.removeChild(liToRemove)
+        
+        localStorage.setItem('tasks', JSON.stringify(tasks))
+    })
+
     const span = document.createElement('span')
     span.textContent = taskTitle
 
