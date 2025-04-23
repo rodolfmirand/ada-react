@@ -35,6 +35,13 @@ function renderTaskOnHTML(taskTitle, done = false) {
     })
     input.checked = done
 
+    const span = document.createElement('span')
+    span.textContent = taskTitle
+
+    if(done){
+        span.style.textDecoration = 'line-through'
+    }
+
     const button = document.createElement('button')
     button.textContent = 'Remover'
     button.addEventListener('click', (event) => {
@@ -51,9 +58,6 @@ function renderTaskOnHTML(taskTitle, done = false) {
         localStorage.setItem('tasks', JSON.stringify(tasks))
     })
 
-    const span = document.createElement('span')
-    span.textContent = taskTitle
-
     li.appendChild(input)
     li.appendChild(span)
     li.appendChild(button)
@@ -61,7 +65,17 @@ function renderTaskOnHTML(taskTitle, done = false) {
     todoListUl.appendChild(li)
 }
 
+window.onload = () => {
+    const tasksOnLocalStorage  = localStorage.getItem('tasks')
 
+    if(!tasksOnLocalStorage) return
+
+    tasks = JSON.parse(tasksOnLocalStorage)
+
+    tasks.forEach(t => {
+        renderTaskOnHTML(t.title, t.done)
+    })
+}
 
 form.addEventListener('submit', (event) => {
     event.preventDefault()
