@@ -5,23 +5,7 @@ const todoListUl = document.querySelector('#todo-list')
 
 let tasks = []
 
-form.addEventListener('submit', (event) => {
-    event.preventDefault()
-
-    const taskTitle = taskTitleInput.value 
-
-    if(taskTitle.length < 5){
-        alert('Sua tarefa deve ter pelo menos 5 caracteres!')
-        return
-    }
-
-    tasks.push({
-        title: taskTitle,
-        done: false
-    })
-
-    localStorage.setItem('tasks', JSON.stringify(tasks))
-
+function renderTaskOnHTML(taskTitle, done = false) {
     const li = document.createElement('li')
     
     const input = document.createElement('input')
@@ -49,6 +33,7 @@ form.addEventListener('submit', (event) => {
 
         localStorage.setItem('tasks', JSON.stringify(tasks))
     })
+    input.checked = done
 
     const button = document.createElement('button')
     button.textContent = 'Remover'
@@ -74,6 +59,29 @@ form.addEventListener('submit', (event) => {
     li.appendChild(button)
 
     todoListUl.appendChild(li)
+}
+
+
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault()
+
+
+    const taskTitle = taskTitleInput.value 
+
+    if(taskTitle.length < 5){
+        alert('Sua tarefa deve ter pelo menos 5 caracteres!')
+        return
+    }
+
+    tasks.push({
+        title: taskTitle,
+        done: false
+    })
+
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+
+    renderTaskOnHTML(taskTitle)
 
     taskTitleInput.value = ''
 })
