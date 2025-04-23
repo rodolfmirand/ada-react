@@ -9,6 +9,7 @@ function renderTaskOnHTML(taskTitle, done = false) {
     const li = document.createElement('li')
     
     const input = document.createElement('input')
+    input.className = 'todo-checkbox'
     input.setAttribute('type', 'checkbox')
     input.addEventListener('change', (event) => {
         const liToToggle = event.target.parentElement
@@ -44,6 +45,7 @@ function renderTaskOnHTML(taskTitle, done = false) {
 
     const button = document.createElement('button')
     button.textContent = 'Remover'
+    button.className = 'remove-btn'
     button.addEventListener('click', (event) => {
         const liToRemove = event.target.parentElement
 
